@@ -2,27 +2,34 @@
 import './App.css';
 import NavBar from './components/NavBar'
 import {BrowserRouter,Routes,Route,useNavigate} from 'react-router-dom'
-import React, { useEffect, createContext, useReducer } from 'react'
+import React, { useEffect, createContext, useReducer, useContext } from 'react'
 import Login from './components/screens/Login'
 import Signup from './components/screens/Signup'
 import Profile from './components/screens/Profile';
 import Home from './components/screens/Home';
 import CreatePost from './components/screens/CreatePost';
 import {reducer,initialState} from './reducers/userReducer'
+import UserProfile from './components/screens/UserProfile';
 
 export const UserContext=createContext()
 
 const Routing=()=>{
 const history=useNavigate();
+const {state,dispatch}=  useContext(UserContext)
 
 useEffect(()=>{
-
+ 
 const user= JSON.parse(localStorage.getItem('user'))
 if(user){
-  history('/home')
+  dispatch({type:"USER", payload:user})
+  console.log("yes logged in");
+ // history('/')
+
 }else{
+  console.log('no login info')
   history('/login')
 }
+
 },
 [])
 
@@ -30,6 +37,11 @@ return(
     
     
       <Routes>
+
+      <Route exact path="/profile/:id" element={<UserProfile/>}>
+
+      </Route>
+
       <Route path="/login" element={ <Login/>}>
        
         </Route>
@@ -48,6 +60,10 @@ return(
       <Route path="/createpost" element={<CreatePost/>}>
 
       </Route>
+
+      {/* <Route path="/profile/:id" element={<UserProfile/>}>
+
+      </Route> */}
 
       </Routes>
     
