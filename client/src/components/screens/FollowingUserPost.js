@@ -3,11 +3,11 @@ import axios from 'axios'
 import { UserContext } from '../../App'
 
 import { Link } from 'react-router-dom'
-export default function Home() {
+export default function FollowingUserPost() {
     const [data, setData] = useState([])
     const { state, dispatch } = useContext(UserContext)
     useEffect(() => {
-        axios.get("http://localhost:7000/allpost", {
+        axios.get("http://localhost:7000/allfollowingpost", {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('jwt')}`
 

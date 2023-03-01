@@ -54,7 +54,7 @@ export default function Login() {
 
                 <input name="email" type="text" placeholder="Enter email" onChange={ getLoginInput}></input>
                 <input name="password" type="password" placeholder="Enter password" onChange={ getLoginInput}></input>
-                <button class="waves-effect waves-light btn" onClick={()=>clickLogin()}>Login</button>
+                <button className="waves-effect waves-light btn" onClick={()=>clickLogin()}>Login</button>
                 <br></br>
                 <br></br>
                 <Link to='/signup'>Don't you have account?</Link>

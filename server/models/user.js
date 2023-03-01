@@ -13,15 +13,15 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true
     },
-    // followers:[{
-    //      type:ObjectId,
-    //      ref:'User'
-    // }],
-    // following:[{
-    //     type:ObjectId,
-    //     ref:'User'
+    followers:[{
+         type:ObjectId,
+         ref:'User'
+    }],
+    following:[{
+        type:ObjectId,
+        ref:'User'
 
-    // }]
+    }]
 
 
 })

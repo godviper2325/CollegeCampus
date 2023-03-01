@@ -4,8 +4,9 @@ import { UserContext } from '../../App'
 import { useParams } from 'react-router-dom'
 
 export default function UserProfile() {
+    const [showFollow,setShowFollow]=useState(true)
     const [post,setPosts]=useState([])
-    const [user,setUser]=useState({})
+    const [user,setUser]=useState()
     const {state, dispatch}=useContext(UserContext)
     const {id} =useParams()
 
@@ -22,6 +23,58 @@ export default function UserProfile() {
             
         })
     },[])
+
+    const followUser=()=>{
+        axios.put('http://localhost:7000/follow/',{followId:id},{
+            headers:{
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+            }
+
+        }).then(result=>{
+            console.log(result);
+            dispatch({type:"UPDATE",payload:{following:result.data.following, followers:result.data.followers}})
+            localStorage.setItem('user',JSON.stringify(result.data))
+
+            setUser((prevState)=>{
+                return{
+                    ...prevState,
+                    user:{
+                        ...prevState,
+                        followers:[...prevState.followers,result.data._id]
+                    }
+                   
+                }
+            })
+            setShowFollow(false)
+        })
+    }
+
+    const unfollowUser=()=>{
+        axios.put('http://localhost:7000/unfollow/',{unfollowId:id},{
+            headers:{
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+            }
+
+        }).then(result=>{
+            console.log(result);
+            dispatch({type:"UPDATE",payload:{following:result.data.following, followers:result.data.followers}})
+            localStorage.setItem('user',JSON.stringify(result.data))
+
+            setUser((prevState)=>{
+
+                const newfollowers=prevState.followers.filter(item=>item!=result.data._id)
+                return{
+                    ...prevState,
+                    user:{
+                        ...prevState,
+                        followers:newfollowers
+                    }
+                   
+                }
+            })
+            setShowFollow(true)
+        })
+    }
     return (
        
 //         <div style={{maxWidth:"500px" , margin:"0px auto"}}>
@@ -82,9 +135,15 @@ export default function UserProfile() {
             <div style={{display:"flex", justifyContent:"space-between", width:"100%"}}>
                 <h6>{post.length} posts</h6>
                 <br></br>
-                <h6> 10 followers</h6>
-                <h6> 10 following</h6>
+                <h6> {user.followers.length}followers</h6>
+                <h6> {user.following.length} following</h6>
             </div>
+            {
+               showFollow?
+               <button className="waves-effect waves-light btn" onClick={()=>followUser()}>Follow</button>
+               :
+               <button style={{margin:"5px"}} className="waves-effect waves-light btn" onClick={()=>unfollowUser()}>UnFollow</button>
+            }
            
         </div>   
        

@@ -10,6 +10,7 @@ import Home from './components/screens/Home';
 import CreatePost from './components/screens/CreatePost';
 import {reducer,initialState} from './reducers/userReducer'
 import UserProfile from './components/screens/UserProfile';
+import FollowingUserPost from './components/screens/FollowingUserPost';
 
 export const UserContext=createContext()
 
@@ -23,7 +24,7 @@ const user= JSON.parse(localStorage.getItem('user'))
 if(user){
   dispatch({type:"USER", payload:user})
   console.log("yes logged in");
- // history('/')
+ //history('/')
 
 }else{
   console.log('no login info')
@@ -39,6 +40,10 @@ return(
       <Routes>
 
       <Route exact path="/profile/:id" element={<UserProfile/>}>
+
+      </Route>
+
+      <Route exact path="/allfollowingpost" element={<FollowingUserPost/>}>
 
       </Route>
 

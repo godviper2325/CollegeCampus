@@ -24,6 +24,7 @@ export default function NavBar() {
             return [
                 <li><Link to="/profile">Profile</Link></li>,
                 <li><Link to="/createpost">CreatePost</Link></li>,
+                <li><Link to="/allfollowingpost">Home</Link></li>,
                 // <li><Link to="/">HomePage</Link></li>,
                  <li onClick={()=>onSignout()} ><Link >Signout</Link></li>
 

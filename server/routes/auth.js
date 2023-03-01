@@ -76,8 +76,8 @@ router.post('/signin',(request,response)=>{
                     //response.status(200).json({successMessage:"Signed in successfully"})
                     //existsUser._id
                     const token=jwt.sign({_id:existsUser._id},JWT_SECRET)
-                    const {_id,email,name}=existsUser
-                    response.json({successMessage:"Login success",   token:token, user:{_id:_id,email:email,name:name}})
+                    const {_id,email,name,following,followers}=existsUser
+                    response.json({successMessage:"Login success",   token:token, user:{_id:_id,email:email,name:name,following:following,followers:followers}})
                     }
                     else{
                         return response.status(422).json({errorMessage:"Invalid password"})
