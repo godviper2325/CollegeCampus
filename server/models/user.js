@@ -21,7 +21,11 @@ const userSchema=mongoose.Schema({
         type:ObjectId,
         ref:'User'
 
-    }]
+    }],
+    image:{
+        type:String,
+        default:"https://res.cloudinary.com/deswhfdie/image/upload/v1678176551/download_ooynrd.png"
+    }
 
 
 })

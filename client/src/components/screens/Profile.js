@@ -28,7 +28,7 @@ export default function Profile() {
                 
                   <br></br>
                 
-<img style={{width:"180px", height:"180px", borderRadius:"100px"}} src={require('../../images/logo2.jpg')}></img>
+<img style={{width:"180px", height:"180px", borderRadius:"100px"}} src={state?state.image:"loading..."}></img>
 
                </div>
                <div>

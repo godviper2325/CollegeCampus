@@ -125,7 +125,7 @@ export default function UserProfile() {
             
               <br></br>
             
-<img style={{width:"180px", height:"180px", borderRadius:"100px"}} src={require('../../images/logo2.jpg')}></img>
+<img style={{width:"180px", height:"180px", borderRadius:"100px"}} src={user.image}></img>
 
            </div>
            <div>

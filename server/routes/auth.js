@@ -25,7 +25,7 @@ router.get('/about', (request,response)=>{
 })
 
 router.post('/signup', (request,response)=>{
-    const {name,email,password}=request.body
+    const {name,email,password,image}=request.body
     
      if(!name|| !email|| !password){
         response.status(422).json({errorMessage: "Please Enter All fields"})
@@ -41,7 +41,8 @@ router.post('/signup', (request,response)=>{
                         
                             email,
                             name,
-                            password:hashedPassword
+                            password:hashedPassword,
+                            image
                         })
                         user.save().then(user=>{
                             response.status(200).json({successMessage:"user  created successfully"})
@@ -76,8 +77,8 @@ router.post('/signin',(request,response)=>{
                     //response.status(200).json({successMessage:"Signed in successfully"})
                     //existsUser._id
                     const token=jwt.sign({_id:existsUser._id},JWT_SECRET)
-                    const {_id,email,name,following,followers}=existsUser
-                    response.json({successMessage:"Login success",   token:token, user:{_id:_id,email:email,name:name,following:following,followers:followers}})
+                    const {_id,email,name,following,followers,image}=existsUser
+                    response.json({successMessage:"Login success",   token:token, user:{_id:_id,email:email,name:name,following:following,followers:followers,image:image}})
                     }
                     else{
                         return response.status(422).json({errorMessage:"Invalid password"})
