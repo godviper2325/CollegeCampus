@@ -118,7 +118,7 @@ export default function Home() {
                         <div key={item._id} className="card home-card">
                             <span><b><Link to={item.postedBy._id!==state._id ? '/profile/'+item.postedBy._id:'/profile'}>{item.postedBy.name}</Link></b> </span>
                             {
-                                 item.postedBy._id==state._id && 
+                                 item.postedBy._id == state._id && 
                                  <i onClick={()=>deletePost(item._id)}   className="material-icons" style={{ color: 
                                     'red', float:'right'}}>delete</i> 
                             }

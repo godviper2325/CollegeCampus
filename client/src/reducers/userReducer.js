@@ -18,14 +18,14 @@
 //     return state
 //  }
 //  export const initialState= {};
-export const initialState= null
+export const initialState= {}
 
 
  export const reducer=(state,action)=>{
     if(action.type==="USER"){
         return action.payload
     }
-    if(action.ty==="CLEAR"){
+    if(action.type==="CLEAR"){
         return null
     }
     if(action.type==="UPDATE"){

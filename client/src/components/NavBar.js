@@ -19,8 +19,8 @@ export default function NavBar() {
     }
     const renderList=()=>{
 
-
-        if (state) {
+        const isUserLoggedIn = localStorage.getItem("user");
+        if (isUserLoggedIn) {
             return [
                 <li><Link to="/profile">Profile</Link></li>,
                 <li><Link to="/createpost">CreatePost</Link></li>,

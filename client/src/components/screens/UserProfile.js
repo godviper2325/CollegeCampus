@@ -7,11 +7,15 @@ export default function UserProfile() {
     const [showFollow,setShowFollow]=useState(true)
     const [post,setPosts]=useState([])
     const [user,setUser]=useState()
-    const {state, dispatch}=useContext(UserContext)
+    const {state, dispatch}=useContext(UserContext);
     const {id} =useParams()
 
     console.log(id);
     useEffect(()=>{
+        loadUserProfile();
+    },[])
+
+    const loadUserProfile = () => {
         axios.get('http://localhost:7000/user/'+id,{
             headers:{
                 "Authorization": `Bearer ${localStorage.getItem('jwt')}`
@@ -21,9 +25,26 @@ export default function UserProfile() {
             setPosts(result.data.posts)
             setUser(result.data.user)
             
-        })
-    },[])
+            const userDetail = localStorage.getItem("user");
+            if(userDetail && userDetail.length > 0){
+            const loggedInUser = JSON.parse(userDetail);
 
+            if(loggedInUser && loggedInUser.result._id){
+                const isUserExist = result.data.user.followers.filter((id, index) => {
+                    return id === loggedInUser.result._id
+                });
+
+                if(isUserExist.length > 0){
+                    setShowFollow(false);  
+                }
+                else{
+                    setShowFollow(true);
+                }
+
+            }
+        }
+        })
+    }
     const followUser=()=>{
         axios.put('http://localhost:7000/follow/',{followId:id},{
             headers:{
@@ -35,17 +56,20 @@ export default function UserProfile() {
             dispatch({type:"UPDATE",payload:{following:result.data.following, followers:result.data.followers}})
             localStorage.setItem('user',JSON.stringify(result.data))
 
-            setUser((prevState)=>{
-                return{
-                    ...prevState,
-                    user:{
-                        ...prevState,
-                        followers:[...prevState.followers,result.data._id]
-                    }
+            // setUser((prevState)=>{
+            //     return{
+            //         ...prevState,
+            //         user:{
+            //             ...prevState,
+            //             followers:[...prevState.followers,result.data._id]
+            //         }
                    
-                }
-            })
-            setShowFollow(false)
+            //     }
+            // })
+            loadUserProfile();
+
+            
+            //setShowFollow(false)
         })
     }
 
@@ -60,19 +84,20 @@ export default function UserProfile() {
             dispatch({type:"UPDATE",payload:{following:result.data.following, followers:result.data.followers}})
             localStorage.setItem('user',JSON.stringify(result.data))
 
-            setUser((prevState)=>{
+            // setUser((prevState)=>{
 
-                const newfollowers=prevState.followers.filter(item=>item!=result.data._id)
-                return{
-                    ...prevState,
-                    user:{
-                        ...prevState,
-                        followers:newfollowers
-                    }
+            //     const newfollowers=prevState.followers.filter(item=>item!=result.data._id)
+            //     return{
+            //         ...prevState,
+            //         user:{
+            //             ...prevState,
+            //             followers:newfollowers
+            //         }
                    
-                }
-            })
-            setShowFollow(true)
+            //     }
+            // })
+            loadUserProfile();
+            //setShowFollow(true)
         })
     }
     return (
