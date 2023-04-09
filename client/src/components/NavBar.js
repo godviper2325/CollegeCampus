@@ -2,6 +2,7 @@
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../App'
+import "../css/style.css"
 
 export default function NavBar() {
      
@@ -42,7 +43,7 @@ export default function NavBar() {
 
         <nav>
             <div class="nav-wrapper">
-                <Link to={state ? "/" : "/login"} className="brand-logo">SRM Friends Circle</Link>
+                <Link to={state ? "/" : "/login"} className="brand-logo text">SRM Friends Circle</Link>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
 
 

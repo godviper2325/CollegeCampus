@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Await, Link } from 'react-router-dom'
+import { Await, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import M from 'materialize-css'
+// import { useNavigate } from 'react-router-dom'
 
 export default function Signup() {
 
@@ -61,7 +62,8 @@ export default function Signup() {
       .then(result=>{
         console.log(result);
         console.log(result.data.successMessage);
-        M.toast({html: result.data.successMessage, classes:'green'})
+        M.toast({html: result.data.successMessage, classes:'green'});
+        link("/login");
        }).catch(err=>{
         M.toast({html: err.response.data.errorMessage, classes:'red'})
         console.log(err.response.data.errorMessage);
@@ -70,7 +72,11 @@ export default function Signup() {
       })
        }
     }
-   
+      const link= useNavigate();
+      // const login=()=>{
+      //   link("/login")
+      // }
+
     return (
         
            

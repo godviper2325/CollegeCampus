@@ -3,6 +3,7 @@ import React, { useEffect, useState ,useContext} from 'react'
 import { UserContext } from '../../App'
 import { useParams } from 'react-router-dom'
 
+
 export default function UserProfile() {
     const [showFollow,setShowFollow]=useState(true)
     const [post,setPosts]=useState([])

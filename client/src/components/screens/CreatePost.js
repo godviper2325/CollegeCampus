@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -43,6 +44,7 @@ export default function CreatePost() {
 
                     .then(moduleresult => {
                         console.log(moduleresult);
+                        link("/");
                     }).catch(moduleerr => {
                         console.log(moduleerr);
                     }).catch(err => {
@@ -51,6 +53,7 @@ export default function CreatePost() {
 
             })
     }
+    const link=useNavigate();
     return (
         <div className="card input-field">
             <input name="title" type="text" placeholder="Enter title" onChange={getFileInput}></input>
